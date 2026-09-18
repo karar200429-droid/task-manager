@@ -85,6 +85,17 @@ docker compose exec api python create_admin.py --username admin --email admin@ex
 - A blank task title gives the error `TITLE_VALIDATION_17`.
 - The password hash is never returned in any response.
 
-## Bonus
+## Bonus Features Implemented & How to Test
 
-None attempted.
+- **Keyword Search & Sorting:** Filter your task list by keyword and sort by due date or priority.
+  - *How to test:* Go to `GET /tasks`, enter a search term in the `search` parameter (e.g., `inventory`), or select `due_date` or `priority` under `sort_by`.
+- **Task Tags:** Categorize tasks with custom tag arrays stored via PostgreSQL JSON.
+  - *How to test:* Add a `tags` array when creating a task (e.g., `["work", "urgent"]`) via `POST /tasks`.
+- **Task Statistics:** Get a breakdown of task counts grouped by status (`todo`, `in_progress`, `done`) plus the total.
+  - *How to test:* Call `GET /tasks/stats` (admins see global stats, regular users see their own).
+- **Admin User Management:** List users, change roles, and enable or disable user accounts.
+  - *How to test:* Authenticate as an admin, then use the endpoints under the **Administration** section:
+    - `GET /admin/users`
+    - `PATCH /admin/users/{user_id}/role`
+    - `PATCH /admin/users/{user_id}/disable`
+    - `PATCH /admin/users/{user_id}/enable`
